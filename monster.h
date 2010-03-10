@@ -7,7 +7,10 @@ typedef struct monster_struct {
 	char *type;
 	char *symbol;
 
-	int hp, defense;
+	int hp, attack, defense;
+	int dead;
+
+	int cost;
 
 	int x, y;
 	int is_on_tetromino;

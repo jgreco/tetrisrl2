@@ -1,0 +1,21 @@
+eliminate rows
+
+generate walls on tetrominos
+generate objects on tetrominos
+generate monsters on tetrominos
+
+create objects
+
+create monster ai
+make fighting code
+
+make display pan with player/tetromino
+UI polish
+
+start and end game code
+
+
+LOW PRIORITY
+============
+mutex tetromino movement functions
+code cleanup/beautification

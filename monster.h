@@ -2,6 +2,7 @@
 #define MONSTER_H_
 
 #include "tetromino.h"
+#include <stdint.h>
 
 typedef struct monster_struct {
 	char *type;
@@ -13,7 +14,8 @@ typedef struct monster_struct {
 	int cost;
 
 	int x, y;
-	int is_on_tetromino;
+	uint8_t is_on_tetromino;
+	uint8_t is_player;
 } monster;
 
 void init_monsters();

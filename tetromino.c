@@ -164,6 +164,8 @@ tetromino *new_tetromino(int type)
 		if(new->data[x][y])
 			new->data[x][y] = color;
 
+	new->color = color;
+
 	new->n = n;
 
 	return new;
@@ -189,3 +191,4 @@ tetromino *copy_rotated_tetromino(tetromino *piece)
 
 	return new;
 }
+

@@ -16,4 +16,5 @@ tetromino *new_tetromino(int type);
 tetromino *new_blank_tetromino();
 tetromino *copy_rotated_tetromino(tetromino *piece);
 
+
 #endif

@@ -46,6 +46,7 @@ int main()
 	srand(time(NULL));
 
 	/* STARTING STUFF */
+	tetromino_allowance = 20;
 
 	/* INIT GAME OBJECTS */
 	init_monsters();
@@ -55,10 +56,9 @@ int main()
 
 	player = create_new_monster("player");
 	player->is_on_tetromino = 1;
+	place_on_tetromino(&(player->x), &(player->y));
 
-	player->x = 5;
-	player->y = 5;
-
+	al_insert(player, al_first(board->monsters), board->monsters);
 
 	/* GAME LOOP */
 	gameloop();
@@ -85,7 +85,7 @@ int gameloop()
 void *drop_tetromino()
 {
 	while(1) {
-		usleep(250000);
+		usleep(500000);
 		move_tetromino_down(board);
 		draw_screen();
 	}
@@ -154,12 +154,24 @@ void draw_screen()
 	void *dumb = NULL;
 	erase();
 
+	if(LINES < board->height) {
+		if(input_mode == TETRIS || player->is_on_tetromino) {
+			offset_y = (board->falling->y+8) - (LINES / 2);
+			if(offset_y < 0)
+				offset_y = 0;
+		} else {
+			offset_y = player->y - (LINES / 2);
+			if(offset_y < 0)
+				offset_y = 0;
+		}
+	}
+
 	for(y=0; y<LINES; y++)
 	for(x=0; x<COLS; x++) {
 		if(x >= board->width || y+offset_y < 0 || y+offset_y >= board->height)
 			continue;
 
-		tmp = board->data[y][x];
+		tmp = board->data[y+offset_y][x];
 
 		switch(tmp) {
 			case VOID:
@@ -233,16 +245,16 @@ void draw_screen()
 		}
 
 		if(tmp == VOID_W || tmp == RED_W || tmp == GREEN_W || tmp == YELLOW_W || tmp == BLUE_W || tmp == MAGENTA_W || tmp == CYAN_W || tmp == WHITE_W)
-			mvprintw(y+board->falling->y, x+board->falling->x, "#", x);
+			mvprintw(y+board->falling->y - offset_y, x+board->falling->x, "#", x);
 		else if(tmp != VOID)
-			mvprintw(y+board->falling->y, x+board->falling->x, " ");
+			mvprintw(y+board->falling->y - offset_y, x+board->falling->x, " ");
 
 
 		if(tmp != VOID && tmp != VOID_W)
-			mvchgat(y+board->falling->y, x+board->falling->x, 1, COLOR_PAIR(color)|A_BOLD|A_REVERSE, color, dumb);
+			mvchgat(y+board->falling->y - offset_y, x+board->falling->x, 1, COLOR_PAIR(color)|A_BOLD|A_REVERSE, color, dumb);
 	}
 
-	if(player->is_on_tetromino) {
+/*	if(player->is_on_tetromino) {
 		color = board->falling->data[player->y][player->x];
 
 		mvprintw(player->y+board->falling->y, player->x+board->falling->x, "@");
@@ -252,6 +264,23 @@ void draw_screen()
 		color = board->data[player->y][player->x];
 		mvprintw(player->y, player->x, "@");
 		mvchgat( player->y, player->x, 1, COLOR_PAIR(color)|A_BOLD|A_REVERSE, color, dumb);
+	}*/
+
+	for_each(x, board->monsters) {
+		monster *tmp = (monster *)al_retrieve(x, board->monsters);
+
+		if(tmp->dead)
+			continue;
+
+		if(tmp->is_on_tetromino) {
+			color = board->falling->data[tmp->y][tmp->x];
+			mvprintw(tmp->y+board->falling->y - offset_y, tmp->x+board->falling->x, "%s", tmp->symbol);
+			mvchgat( tmp->y+board->falling->y - offset_y, tmp->x+board->falling->x, 1, COLOR_PAIR(color)|A_BOLD|A_REVERSE, color, dumb);
+		} else {
+			color = board->data[tmp->y][tmp->x];
+			mvprintw(tmp->y - offset_y, tmp->x, "%s", tmp->symbol);
+			mvchgat( tmp->y - offset_y, tmp->x, 1, COLOR_PAIR(color)|A_BOLD|A_REVERSE, color, dumb);
+		}
 	}
 
 	refresh();

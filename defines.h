@@ -10,4 +10,6 @@ enum tile_types { VOID, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE, VOID_W, 
 level *board;
 monster *player;
 
+int tetromino_allowance;
+
 #endif

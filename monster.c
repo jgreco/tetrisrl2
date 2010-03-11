@@ -34,10 +34,12 @@ void init_monsters()
 		new_monst->dead = 0;
 		new_monst->type = strdup(sec);
 
-		new_monst->symbol  = strdup(iniparser_getstring(monst_file, construct_key(sec, "symbol") , "x"));
-		new_monst->hp      = iniparser_getint(monst_file,           construct_key(sec, "hp")     , 0   );
-		new_monst->attack  = iniparser_getint(monst_file,           construct_key(sec, "attack") , 0   );
-		new_monst->defense = iniparser_getint(monst_file,           construct_key(sec, "defense"), 0   );
+		new_monst->symbol    = strdup(iniparser_getstring(monst_file, construct_key(sec, "symbol") , "x"));
+		new_monst->hp        = iniparser_getint(monst_file,           construct_key(sec, "hp")     , 0   );
+		new_monst->attack    = iniparser_getint(monst_file,           construct_key(sec, "attack") , 0   );
+		new_monst->defense   = iniparser_getint(monst_file,           construct_key(sec, "defense"), 0   );
+
+		new_monst->is_player = iniparser_getint(monst_file,           construct_key(sec, "player") , 0   );
 	}
 
 	return;

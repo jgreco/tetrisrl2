@@ -16,7 +16,7 @@ typedef struct level_struct {
 } level;
 
 level *make_level();
-void eliminate_rows(level *lev);
+void eliminate_rows();
 void move_tetromino_down(level *lev);
 void move_tetromino_right(level *lev);
 void move_tetromino_left(level *lev);
@@ -24,5 +24,6 @@ void place_tetromino(level *lev);
 void rotate_tetromino();
 
 void gen_new_tetromino();
+void place_on_tetromino(int *x, int *y);
 
 #endif

@@ -85,7 +85,7 @@ int gameloop()
 void *drop_tetromino()
 {
 	while(1) {
-		usleep(500000);
+		usleep(1000000);
 		move_tetromino_down(board);
 		draw_screen();
 	}
@@ -156,14 +156,15 @@ void draw_screen()
 
 	if(LINES < board->height) {
 		if(input_mode == TETRIS || player->is_on_tetromino) {
-			offset_y = (board->falling->y+8) - (LINES / 2);
-			if(offset_y < 0)
-				offset_y = 0;
+			offset_y = board->falling->y;
 		} else {
 			offset_y = player->y - (LINES / 2);
 			if(offset_y < 0)
 				offset_y = 0;
 		}
+
+		if(offset_y > board->height - LINES)
+			offset_y = board->height-LINES;
 	}
 
 	for(y=0; y<LINES; y++)

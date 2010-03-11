@@ -1,15 +1,15 @@
-DONE - eliminate rows
+    DONE - eliminate rows
 
-generate walls on tetrominos
+    DONE - generate walls on tetrominos
 generate objects on tetrominos
-generate monsters on tetrominos
+    PARTIAL - generate monsters on tetrominos
 
 create objects
 
 create monster ai
 make fighting code
 
-make display pan with player/tetromino
+    DONE - make display pan with player/tetromino
 UI polish
 
 start and end game code

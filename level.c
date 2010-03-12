@@ -5,6 +5,7 @@
 #include "defines.h"
 #include "util.h"
 
+#include "debugging.h"
 level *make_level()
 {
 	int i, k;
@@ -192,6 +193,7 @@ void eliminate_rows()
 		for(x=1; x<board->width-1; x++)
 			board->data[k][x] = board->data[k-1][x];
 
+		lines_cleared++;
 		y++;
 	}
 
@@ -205,7 +207,7 @@ void gen_new_tetromino()
 	int x, y;
 	int i;
 	int color=0;
-	monster *tmp;
+	monster *tmp = NULL;
 	board->falling = new_tetromino(rand() % 7);
 	board->falling->x = 13;
 	board->falling->y = 1;
@@ -239,29 +241,56 @@ void gen_new_tetromino()
 	 */
 	int money = tetromino_allowance;
 
-//	while(money >= 2) {
-	for(i=0; i<5; i++) {
-//		switch(rand()%3) {
-//			case 0:
-		tmp = create_new_monster("lab-rat");
+log_("money: %d\n", money);
+	while(money >= 2) {
+//	for(i=0; i<5; i++) {
+log_("money: %d\n", money);
+		switch(rand()%3) {
+			case 0:
+				tmp = create_new_monster("lab-rat");
+				break;
+			case 1:
+				tmp = create_new_monster("chimp");
+				break;
+			case 2:
+				tmp = create_new_monster("bear");
+				break;
+		}
+log_("cost: %d\n", tmp->cost);
+
+		if(tmp->cost > money) {
+			free(tmp);
+			continue;
+		}
 
 		al_insert(tmp, al_first(board->monsters), board->monsters);
+
 		money -= tmp->cost;
-
-		place_on_tetromino(&(tmp->x), &(tmp->y));
-
 		tmp->is_on_tetromino = 1;
-//				break;
-//			case 1:
-//				al_insert(create_new_monster("chimp"), al_first(board->monsters), board->monsters);
-//				money -= ((monster *)al_retrieve(al_first(board->monsters), board->monsters))->cost;
-//				break;
-//			case 2:
-//				al_insert(create_new_monster("bear"), al_first(board->monsters), board->monsters);
-//				money -= ((monster *)al_retrieve(al_first(board->monsters), board->monsters))->cost;
-//				break;
-//		}
+		place_on_tetromino(&(tmp->x), &(tmp->y));
 	}
+
+	switch(rand()%5) {
+		case 0:
+			tmp = create_new_monster("health-pack");
+			break;
+		case 1:
+			tmp = create_new_monster("wrench");
+			break;
+		case 2:
+			tmp = create_new_monster("baseball-bat");
+			break;
+		case 3:
+			tmp = create_new_monster("lab-suit");
+			break;
+		case 4:
+			tmp = create_new_monster("hard-hat");
+			break;
+	}
+
+	al_insert(tmp, al_first(board->monsters), board->monsters);
+	tmp->is_on_tetromino = 1;
+	place_on_tetromino(&(tmp->x), &(tmp->y));
 
 	return;
 }

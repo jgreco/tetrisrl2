@@ -1,18 +1,20 @@
     DONE - eliminate rows
 
     DONE - generate walls on tetrominos
-generate objects on tetrominos
-    PARTIAL - generate monsters on tetrominos
-
-create objects
-
-create monster ai
-make fighting code
+    DONE - generate monsters on tetrominos
 
     DONE - make display pan with player/tetromino
-UI polish
+>>>>PARTIAL - UI polish
 
-start and end game code
+    DONE - create objects
+    DONE - generate objects on tetrominos
+
+    DONE - make fighting code
+>>>>TODO - tie fightcode into move_monster()
+>>>>PARTIAL - create monster ai
+
+
+>>>>TODO - start and end game code
 
 
 LOW PRIORITY

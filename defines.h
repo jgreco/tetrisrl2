@@ -11,5 +11,6 @@ level *board;
 monster *player;
 
 int tetromino_allowance;
+int lines_cleared;
 
 #endif

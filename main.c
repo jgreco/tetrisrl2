@@ -177,15 +177,15 @@ int ninterface()
 					continue;
 					break;
 
-				case 'h': move_monster(player, player->x-1, player->y);   break;
-				case 'j': move_monster(player, player->x, player->y+1);   break;
-				case 'k': move_monster(player, player->x, player->y-1);   break;
-				case 'l': move_monster(player, player->x+1, player->y);   break;
+				case 'h': case KEY_LEFT: case 'a': move_monster(player, player->x-1, player->y);   break;
+				case 'j': case KEY_DOWN: case 's': move_monster(player, player->x, player->y+1);   break;
+				case 'k': case KEY_UP:   case 'w': move_monster(player, player->x, player->y-1);   break;
+				case 'l': case KEY_RIGHT: case 'd': move_monster(player, player->x+1, player->y);   break;
 
-				case 'y': move_monster(player, player->x-1, player->y-1); break;
-				case 'u': move_monster(player, player->x+1, player->y-1); break;
-				case 'b': move_monster(player, player->x-1, player->y+1); break;
-				case 'n': move_monster(player, player->x+1, player->y+1); break;
+				case 'y': case 'q': move_monster(player, player->x-1, player->y-1); break;
+				case 'u': case 'e': move_monster(player, player->x+1, player->y-1); break;
+				case 'b': case 'z': move_monster(player, player->x-1, player->y+1); break;
+				case 'n': case 'c': move_monster(player, player->x+1, player->y+1); break;
 			}
 		} else { /* TETRIS */
 			switch(key) {
@@ -194,13 +194,13 @@ int ninterface()
 					continue;
 					break;
 
-				case 'k':
+				case 'k': case 'w': case KEY_UP:
 					rotate_tetromino();
 					break;
-				case 'l':
+				case 'l': case 'd': case KEY_RIGHT:
 					move_tetromino_right(board);
 					break;
-				case 'h':
+				case 'h': case 'a': case KEY_LEFT:
 					move_tetromino_left(board);
 					break;
 			}

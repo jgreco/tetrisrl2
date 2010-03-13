@@ -1,0 +1,46 @@
+Building TetrisRL2 should be very simple, though it assumes a few things:
+
+	- You have Ncurses development stuff installed
+	- You have pthreads
+	- You have iniparser development stuff installed
+
+Make sure you have each of these installed correctly before you try to proceed.
+If you are using a modern Linux system it should be very simple for the most
+part, don't worry about pthreads (you will already have it), your package
+manager can assist you in getting ncurses, and it might be able to get you
+iniparser.  If not, you can download and install iniparser as so:
+
+      wget http://ndevilla.free.fr/iniparser/iniparser3.0b.tar.gz
+      tar -xvf iniparser3.0b.tar.gz
+      cd iniparser3.0b/
+      make
+
+  -then, as root or sudo -
+  (exact paths may vary)
+
+      cp src/dictionary.h /usr/local/include
+      cp libiniparser.so.0 /usr/lib
+      ln -s /usr/lib/libiniparser.so.0 /usr/lib/libiniparser.so
+      ldconfig
+
+  - If you do not feel comforable doing this, or do not have permission to do
+    so, you may statically link tetrisrl2 with iniparser, but you are on your
+    own with doing this.
+
+
+After you are sure that you have all the required libraries installed, you need
+to determine if you want to build TetrisRL2 with or without unicode.
+
+  - With unicode
+
+      make
+
+  - Without unicode
+
+      make -f Makefile.no_utf8
+
+
+That's it!  Assuming everything worked out fine, you can now simply run
+TetrisRL2 like:
+
+  ./tetrisrl2

@@ -88,7 +88,7 @@ int main()
 
 	getch();
 
-	mvprintw(17, 0, "Oh, and comrad, I almost forgot to tell you:  it seems through a completely\n" \
+	mvprintw(17, 0, "Oh, and comrade, I almost forgot to tell you:  it seems through a completely\n" \
 "bad stroke of luck that more of my laboratory animals have once again escaped\n" \
 "Be warned that some of zem are far larger than you are used to dealing with.\n" \
 "I may be able to find some supplies to send done on ze platforms for you so\n" \
@@ -164,7 +164,7 @@ int ninterface()
 		flushinp();
 		if(stop_tetrominos && player->y <= 5) {
 			endwin();
-			printf("Zat is good enough comrad!  I am very pleased with these results!  I'll let\nyou get some rest, zen we can begin a new experiment in ze morning!\n"); fflush(stdout);
+			printf("Zat is good enough comrade!  I am very pleased with these results!  I'll let\nyou get some rest, zen we can begin a new experiment in ze morning!\n"); fflush(stdout);
 			exit(EXIT_SUCCESS);
 		}
 
@@ -212,7 +212,7 @@ int ninterface()
 			usleep(100000);
 	}
 	endwin();
-	printf("I am very disappointed with you comrad...\n"); fflush(stdout);
+	printf("I am very disappointed with you comrade...\n"); fflush(stdout);
 	exit(EXIT_SUCCESS);
 
 	return 0;
@@ -357,7 +357,11 @@ void draw_screen()
 
 
 		for(i=0; i<LINES; i++) {
+#ifdef NO_UNICODE
+			mvprintw(i, 42, "##");
+#else
 			mvprintw(i, 42, "▒▒");
+#endif
 			mvchgat(i, 42, 2, COLOR_PAIR(WHITE)|A_REVERSE, WHITE, dumb);
 		}
 		for(i=down; i<LINES && (i-down) < bar; i++) {

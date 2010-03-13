@@ -1,0 +1,127 @@
+README file for "TetrisRL 2" by John L. Greco
+
+INTRO:
+======
+TetrisRL 2 is my 2010 7drl Challenge entry, this file, as well as all the files
+that came with this do not reflect the actual submitted state of my 7drl, if
+you are a purist you may find the original submission either on github, or
+linked on TetrisRL 2's webpage.
+
+Similar to the goal of TetRLs it is a highly experimental roguelike with
+gameplay stylized after the hit computer game Tetris, created by Alexey
+Pajitnov in 1985 while working at the Academy of Science of the USSR.
+
+Unlike TetRLs, TetrisRL 2 is *nix only (no official windows build), realtime,
+contains multiple monsters, row elimination, objects, and a more complex
+stats/combat system.
+
+
+BUILDING AND INSTALLATION:
+==========================
+See the BUILDING file.
+
+Please not that while it may be possible to get this game to run with Cygwin,
+the author has not done so and thus cannot support that.
+
+
+PREMISE:
+========
+
+Premise to TetRLs:
+------------------
+In TetRLs you play an unidentified character who is apparently trapped
+in the laboratory of a mad soviet scientist, forced to participate in some
+sort of bizarre mind-game experiment that involves a lot of arranging of oddly
+shaped crates.  However, you must balance this task with battling dozens of
+highly aggressive lab rats that apparently escaped (or were released...).
+
+Premise to TetrisRL2:
+---------------------
+Once again you play an unidentified character who remains trapped by a mad
+soviet scientist.  He has come up with a new experiment, far larger in scale
+and more challenging than the last.  This time you must direct the movement of
+several large and oddly shaped moving platforms, while battling various lab
+animals with whatever supplies you can find laying around.  Platforms are
+rigged to explode if you complete a row with them, which can be used to your
+advantage (eliminate monsters), or can kill you if you happen to be in the
+wrong place.
+
+
+GAMEPLAY:
+=========
+TetrisRL 2 once again uses very simple controls which can be learned quickly.
+Movement can be done with standard "vi-keys", "wasd", "arrow keys, or the
+numpad with 'numlock' turned on. You may choose to use whichever scheme you wish
+at any time though use of the arrow keys is discouraged because that scheme does
+not provide easy access to diagonal movement keys.
+
+TetrisRL 2 uses a modal input scheme (think Vi).  To toggle back and forth
+between controlling the @-guy and controlling where the tetrominos fall, press
+the spacebar.  The screen will indicate at all times which mode you are in.
+
+To complete the game, the player must manage to not fall off the tetrominos,
+stack several of them up so that they reach the top of the level, and make
+his way up to the top.  Each tetromino will be spawned with a random assortment
+of monsters (the difficulty of tetrominos will increase over the course of the
+game), as well as a single item to help the player (A med-pack, weapon, or
+piece of armor).  To pickup/use items simply bump into them.  There is no
+inventory system.
+
+
+MOVEMENT KEYS:
+==============
+vi-keys: (suggested)
+--------
+
+	h - left
+	l - right
+	j - down
+	k - up
+
+	y - up-left
+	u - up-right
+	b - down-left
+	n - down-right
+
+wasd:
+-----
+
+	w - up
+	a - left
+	s - down
+	d - right
+
+	q - up-left
+	e - up-right
+	z - down-left
+	c - down-right
+
+arrow keys: (NOT recommended, no diagonal support)
+-----------
+
+	up - up
+	down - down
+	left - left
+	right - right
+
+numpad:
+-------
+
+	4 - left
+	6 - right
+	8 - up
+	2 - down
+
+	7 - up-left
+	9 - up-right
+	1 - down-left
+	3 - down-right
+
+
+To switch between 'TETRIS' and 'ROGUE' mode:
+
+	<SPACE>
+
+To quit (and die) at any time:
+
+	Q

@@ -36,7 +36,7 @@ void *al_retrieve(int p, arraylist L)
 	if(p >= al_first(L) && p < al_end(L))
 		return L->data[p];
 	else
-		assert(0);  /* shit bricks */
+		return NULL;  /* shit bricks */
 }
 
 int al_insert(void *data, int p, arraylist L)

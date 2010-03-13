@@ -14,6 +14,9 @@ typedef struct monster_struct {
 	char *evade;
 	char *strike;
 	char *pickup;
+	char *die;
+	char *range_hit;
+	char *range_miss;
 
 	int hp, attack, defense;
 	uint8_t dead;
@@ -26,6 +29,7 @@ typedef struct monster_struct {
 	uint8_t is_player;
 	uint8_t is_object;
 } monster;
+
 
 void init_monsters();
 monster *create_new_monster(char *type);

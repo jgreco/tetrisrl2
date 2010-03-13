@@ -94,6 +94,8 @@ void place_tetromino(level *lev)
 {
 	int y, x;
 
+
+
 	for(y=0; y<16; y++)
 	for(x=0; x<16; x++) {
 		if(x+board->falling->x >= board->width || y+board->falling->y > board->height)
@@ -118,6 +120,10 @@ void place_tetromino(level *lev)
 		player->y = player->y + board->falling->y;
 	}
 
+	if(board->falling->y == 1) {
+		stop_tetrominos = 1;
+		return;
+	}
 	free(board->falling);
 
 
@@ -240,11 +246,9 @@ void gen_new_tetromino()
 	 * generate better walls, objects
 	 */
 	int money = tetromino_allowance;
+	tetromino_allowance++;
 
-log_("money: %d\n", money);
 	while(money >= 2) {
-//	for(i=0; i<5; i++) {
-log_("money: %d\n", money);
 		switch(rand()%3) {
 			case 0:
 				tmp = create_new_monster("lab-rat");
@@ -256,7 +260,6 @@ log_("money: %d\n", money);
 				tmp = create_new_monster("bear");
 				break;
 		}
-log_("cost: %d\n", tmp->cost);
 
 		if(tmp->cost > money) {
 			free(tmp);

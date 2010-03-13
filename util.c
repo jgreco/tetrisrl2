@@ -11,3 +11,4 @@ void rotate_coords(int *x, int *y, int n)
 
 	return;
 }
+

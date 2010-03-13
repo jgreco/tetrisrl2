@@ -53,8 +53,10 @@ int main()
 	srand(time(NULL));
 
 	/* STARTING STUFF */
-	tetromino_allowance = 20;
+	tetromino_allowance = 5;
+	stop_tetrominos = 0;
 	lines_cleared = 0;
+	score = 0;
 	logging = fopen("log", "w");
 
 	/* INIT GAME OBJECTS */
@@ -63,11 +65,36 @@ int main()
 	board->monsters = al_makenull(NULL);
 	gen_new_tetromino();
 
+	messages = al_makenull(NULL);
+
 	player = create_new_monster("player");
 	player->is_on_tetromino = 1;
 	place_on_tetromino(&(player->x), &(player->y));
 
 	al_insert(player, al_first(board->monsters), board->monsters);
+
+	/* INTRO */
+	mvprintw(0, 0, "Velcome back comrade! I zee you have fully recovered from our last experiment.\n\n" \
+"Now ve can get back to doing some science!\n\n" \
+"If you look around you vill zee that ze laboratory is much larger this time,\n" \
+"zis is appropriate for ze complexity of ze experiment has increased as well!\n" \
+"You are standing on an oddly shaped platform zat is moving slowly but surely\n" \
+"toward ze other side of ze laboratory.  In your possession you will fine a\n" \
+"remote control to control ze movement and rotation of ze platform.\n" \
+"You may activate ze remote with [SPACE], and deactivate it ze same way.\n\n" \
+"You may position ze platforms as you wish, though be warned zey are rigged\n" \
+"to detonate if too many of zem align in a row!  It is most unhealthy to be\n" \
+"ontop of zem when zey do so!  Try to get back to ze top if you can.");
+
+	getch();
+
+	mvprintw(17, 0, "Oh, and comrad, I almost forgot to tell you:  it seems through a completely\n" \
+"bad stroke of luck that more of my laboratory animals have once again escaped\n" \
+"Be warned that some of zem are far larger than you are used to dealing with.\n" \
+"I may be able to find some supplies to send done on ze platforms for you so\n" \
+"zat you can deal with zem.  Good luck comrade!  And do try not to fall off!\n");
+	getch();
+
 
 	/* GAME LOOP */
 	gameloop();
@@ -94,7 +121,9 @@ int gameloop()
 void *drop_tetromino()
 {
 	while(1) {
-		usleep(1000000);
+		if(stop_tetrominos)
+			return NULL;
+		usleep(1250000);
 		move_tetromino_down(board);
 		draw_screen();
 	}
@@ -109,10 +138,10 @@ void *ai_run()
 	while(1) {
 		for_each(i, board->monsters) {
 			monster *tmp = (monster *)al_retrieve(i, board->monsters);
+			if(tmp->dead)
+				continue;
 
-			if(tmp->is_player || tmp->is_object)
-			{
-				log_("skipping monster %s\n", tmp->type);
+			if(tmp->is_player || tmp->is_object) {
 				continue;
 			}
 
@@ -120,7 +149,7 @@ void *ai_run()
 		}
 
 		draw_screen();
-		usleep(250000);
+		usleep(1250000);
 	}
 
 	return NULL;
@@ -132,6 +161,13 @@ int ninterface()
 	draw_screen();
 	int key = 0;
 	while(key != 'Q' && !player->dead) {
+		flushinp();
+		if(stop_tetrominos && player->y <= 5) {
+			endwin();
+			printf("Zat is good enough comrad!  I am very pleased with these results!  I'll let\nyou get some rest, zen we can begin a new experiment in ze morning!\n"); fflush(stdout);
+			exit(EXIT_SUCCESS);
+		}
+
 		key = getch();
 
 		if(input_mode == ROGUE) {
@@ -172,7 +208,12 @@ int ninterface()
 		}
 
 		draw_screen();
+		if(input_mode == ROGUE)
+			usleep(100000);
 	}
+	endwin();
+	printf("I am very disappointed with you comrad...\n"); fflush(stdout);
+	exit(EXIT_SUCCESS);
 
 	return 0;
 }
@@ -340,6 +381,12 @@ void draw_screen()
 	mvprintw(15, 50, "   HP: %d", player->hp);
 	mvprintw(17, 50, "   Attack: %d", player->attack);
 	mvprintw(18, 50, "   Defense: %d", player->defense);
+
+	for(i=0; i<LINES-20; i++) {
+		char *mes = al_retrieve(i, messages);
+		if(mes != NULL)
+			mvprintw( 20+i, 50,"%s", mes);
+	}
 
 	refresh();
 

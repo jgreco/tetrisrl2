@@ -4,16 +4,17 @@
     DONE - generate monsters on tetrominos
 
     DONE - make display pan with player/tetromino
->>>>PARTIAL - UI polish
+    DONE - UI polish
 
     DONE - create objects
     DONE - generate objects on tetrominos
 
     DONE - make fighting code
->>>>TODO - tie fightcode into move_monster()
->>>>PARTIAL - create monster ai
+    DONE - tie fightcode into move_monster()
+    DONE - create monster ai
 
 
+    DONE - display messages
 >>>>TODO - start and end game code
 
 
